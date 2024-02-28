@@ -3,7 +3,12 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Environment
+  - Hand
+  - Finger L
+  - Finger R
+  - Wound
   layers:
   - Default
   - TransparentFX
@@ -36,7 +41,7 @@ TagManager:
   - 
   - 
   - 
-  - 
+  - Spatial Mesh
   m_SortingLayers:
   - name: Default
     uniqueID: 0
