@@ -7,16 +7,7 @@ public class HandDetection : MonoBehaviour
     public bool rightHand;
     public AudioClip[] sfx;
     public AudioSource source;
-    public Transform wristJoint;
-    public Transform shoulderJoint;
-    public LineRenderer arm;
-
-    //Arm renders
-    void Update()
-    {
-        arm.SetPosition(0, shoulderJoint.position);
-        arm.SetPosition(1, wristJoint.position);
-    }
+    public Transform head;
 
     //Hand is the trigger, and detects specified tags on other colliders
     void OnTriggerEnter(Collider obj)
@@ -33,13 +24,13 @@ public class HandDetection : MonoBehaviour
                 source.PlayOneShot(sfx[2], 1);
                 break;
             case "Finger R":
-                if (Vector3.Distance(transform.position, shoulderJoint.position) < 0.6f) {
+                if (Vector3.Distance(transform.position, head.position) < 1) {
                     if (rightHand) source.PlayOneShot(sfx[0], 1);
                     else source.PlayOneShot(sfx[1], 1);
                 }
                 break;
             case "Finger L":
-                if (Vector3.Distance(transform.position, shoulderJoint.position) < 0.6f) {
+                if (Vector3.Distance(transform.position, head.position) < 1) {
                     if (!rightHand) source.PlayOneShot(sfx[0], 1);
                     else source.PlayOneShot(sfx[1], 1);
                 }
