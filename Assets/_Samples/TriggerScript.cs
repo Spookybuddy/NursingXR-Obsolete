@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
+//using UnityEngine.Events;
 
 public enum TagList
 {
@@ -33,14 +35,22 @@ public enum Functions
 
 public class TriggerScript : MonoBehaviour
 {
+    //Enumerator dropdown multi selections
     [EnumFlags]
     public TagList tags;
-
     [EnumFlags]
     public CallOn calledWhen;
-
     [EnumFlags]
     public Functions function;
+
+    //Outside script object to call function of
+    [Header("Outside Script")]
+    public MonoBehaviour script;
+    [HideInInspector]
+    public string scriptName;
+
+    //Using Unity Events might be the smarter choice, but I feel cooler using the custom Editor
+    //public UnityEvent events;
 
     //Function to perform on entry
     void OnTriggerEnter(Collider collide)
@@ -123,11 +133,24 @@ public class TriggerScript : MonoBehaviour
                 return;
             //Specifics
             default:
-                string binary = (System.Convert.ToString((int)function, 2));
-                for (int i = binary.Length - 1; i > -1; i--) {
-                    if (binary[i] == '1') Invoke(fullList[i], 0);
+                if (script != null) {
+                    //Check all the function names, and if the scriptName matches any return. Failure to match results in resorting to this.function
+                    MethodInfo[] methods = script.GetType().GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly);
+                    for (int i = 0; i < methods.Length; i++) {
+                        if (scriptName.Equals(methods[i].Name)) {
+                            script.Invoke(scriptName, 0);
+                            return;
+                        }
+                    }
                 }
-            return;
+
+                //Convert the Enum to the functions
+                string binary = (System.Convert.ToString((int)function, 2));
+                int length = binary.Length - 1;
+                for (int i = length; i > -1; i--) {
+                    if (binary[i] == '1') Invoke(fullList[length - i], 0);
+                }
+                return;
         }
     }
 

@@ -2513,7 +2513,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tags: 2050
   calledWhen: 1
-  function: -1
+  function: 2
+  script: {fileID: 0}
+  scriptName: 
 --- !u!65 &1465390575
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2555,7 +2557,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 4d1ca21aa2c364b47ab91174d192f64d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
